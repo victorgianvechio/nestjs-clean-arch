@@ -8,6 +8,7 @@ describe('UserEntity unit tests', () => {
   beforeEach(() => {
     props = UserDataBuilder({});
     sut = new UserEntity(props);
+    console.log(sut);
   });
 
   it('constructor method', () => {
@@ -19,6 +20,12 @@ describe('UserEntity unit tests', () => {
 
   it('getter of name field', () => {
     expect(sut.props.name).toBeDefined();
+    expect(sut.props.name).toEqual(props.name);
+    expect(typeof sut.props.name).toBe('string');
+  });
+
+  it('setter of name field', () => {
+    sut['name'] = 'other name';
     expect(sut.props.name).toEqual(props.name);
     expect(typeof sut.props.name).toBe('string');
   });
@@ -35,8 +42,24 @@ describe('UserEntity unit tests', () => {
     expect(typeof sut.props.password).toBe('string');
   });
 
+  it('setter of password field', () => {
+    sut['password'] = 'other password';
+    expect(sut.props.password).toEqual(props.password);
+    expect(typeof sut.props.password).toBe('string');
+  });
+
   it('getter of createdAt field', () => {
     expect(sut.props.createdAt).toBeDefined();
     expect(sut.props.createdAt).toBeInstanceOf(Date);
+  });
+
+  it('should update user name', () => {
+    sut.update('other name');
+    expect(sut.props.name).toEqual('other name');
+  });
+
+  it('should update user password', () => {
+    sut.updatePassword('other password');
+    expect(sut.props.password).toEqual('other password');
   });
 });
